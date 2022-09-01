@@ -38,10 +38,10 @@ app.get("/rooms", (req, res) => {
   res.send(rooms);
 });
 
-app.get("/roomClicks", (req, res) => {
+app.get("/roomDetails", (req, res) => {
   const roomId = req.query.roomId;
   const remainingClicks = rooms.filter((room) => room.name === roomId);
-  res.send(`${remainingClicks[0].clicksLeft}`);
+  res.send(remainingClicks[0]);
 });
 
 // Socket.IO listener
@@ -52,9 +52,6 @@ io.on("connection", (socket) => {
     const room = rooms.filter((room) => room.name === roomId)[0];
     if (room) {
       socket.join(roomId);
-    } else {
-      console.log("wrong door");
-      socket.emit("noRoom");
     }
   });
 
@@ -64,7 +61,6 @@ io.on("connection", (socket) => {
 
   socket.on("create_room", () => {
     const roomId = uuid4();
-    console.log(roomId);
     rooms.push({ name: roomId, clicksLeft: 1_000_000 });
     io.emit("room_created", rooms);
   });
