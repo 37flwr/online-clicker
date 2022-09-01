@@ -1,16 +1,16 @@
-// db
-const rooms = [
-  {
-    name: "Test room",
-    clicksLeft: 1_000_000,
-  },
-];
-const port = 8080;
-
 // Requires
 const express = require("express");
 const cors = require("cors");
 const uuid4 = require("uuid").v4;
+
+// db
+const rooms = [
+  {
+    name: uuid4(),
+    clicksLeft: 1_000_000,
+  },
+];
+const port = 8080;
 
 // App configuration
 const app = express();
@@ -33,29 +33,46 @@ http.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
 
+// API calls
 app.get("/rooms", (req, res) => {
   res.send(rooms);
 });
 
 app.get("/roomClicks", (req, res) => {
-  console.log(req.query.roomId);
   const roomId = req.query.roomId;
   const remainingClicks = rooms.filter((room) => room.name === roomId);
-  console.log(remainingClicks[0].clicksLeft);
   res.send(`${remainingClicks[0].clicksLeft}`);
 });
 
+// Socket.IO listener
 io.on("connection", (socket) => {
   console.log("user connected" + socket.id);
 
-  //   socket.on("send_msg", (data) => {
-  //     socket.broadcast.emit("receive_msg", data);
-  //   });
+  socket.on("joinRoom", (roomId) => {
+    const room = rooms.filter((room) => room.name === roomId)[0];
+    if (room) {
+      socket.join(roomId);
+    } else {
+      console.log("wrong door");
+      socket.emit("noRoom");
+    }
+  });
+
+  socket.on("leaveRoom", (roomId) => {
+    socket.leave(roomId);
+  });
 
   socket.on("create_room", () => {
     const roomId = uuid4();
     console.log(roomId);
     rooms.push({ name: roomId, clicksLeft: 1_000_000 });
     io.emit("room_created", rooms);
+  });
+
+  socket.on("registerClick", (roomId) => {
+    const room = rooms.filter((room) => room.name === roomId)[0];
+    const roomClicks = room.clicksLeft - 1;
+    room.clicksLeft = roomClicks;
+    io.to(roomId).emit("clickRegistered", room.clicksLeft);
   });
 });
