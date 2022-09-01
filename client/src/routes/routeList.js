@@ -1,17 +1,21 @@
+import { useRoutes } from "react-router";
 import ClickerPage from "../pages/ClickerPage";
 import HomePage from "../pages/HomePage";
 
 const routeList = [
   {
     path: "/",
-    exact: true,
-    component: HomePage,
+    element: <HomePage />,
   },
   {
     path: "/click",
-    exact: false,
-    component: ClickerPage,
+    element: <ClickerPage />,
   },
 ];
 
-export default routeList;
+const AppRoutes = () => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  return useRoutes(routeList);
+};
+
+export default AppRoutes;

@@ -1,16 +1,21 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { ErrorBoundary } from "react-error-boundary";
+import { BrowserRouter } from "react-router-dom";
+import { SWRConfig } from "swr";
 import "./App.scss";
-import routeList from "./routes/routeList";
+
+import ErrorFallback from "./components/ErrorFallback";
+import AppRoutes from "./routes/routeList";
+import { fetcher } from "./utils/fetcher.js";
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        {routeList.map(({ path, exact, component: Component }, idx) => (
-          <Route path={path} exact={exact} element={<Component />} key={idx} />
-        ))}
-      </Routes>
-    </Router>
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
+      <SWRConfig value={{ fetcher }}>
+        <BrowserRouter>
+          <AppRoutes />
+        </BrowserRouter>
+      </SWRConfig>
+    </ErrorBoundary>
   );
 }
 

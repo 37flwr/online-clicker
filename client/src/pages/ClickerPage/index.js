@@ -1,43 +1,38 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import socket from "../../socket";
-
-const registerClick = (roomId) => {
-  socket.emit("registerClick", roomId);
-};
+import { useEffect, useState } from "react";
+import socket from "../../utils/socket";
+import { registerClick } from "../../utils/socketActions";
+import "./styles.scss";
 
 const ClickerPage = () => {
   const roomId = new URLSearchParams(window.location.search).get("title");
   const [clicksLeft, setClicksLeft] = useState(0);
-  const [noRoom, setNoRoom] = useState(false);
+  const [room, setRoom] = useState(null);
   socket.emit("joinRoom", roomId);
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/roomClicks", { params: { roomId } })
+      .get("http://localhost:8080/roomDetails", { params: { roomId } })
       .then((res) => {
-        setClicksLeft(res.data);
+        setClicksLeft(res.data.clicksLeft);
+        setRoom(res.data.name);
       });
 
     socket.on("clickRegistered", (data) => {
       setClicksLeft(data);
     });
 
-    socket.on("noRoom", () => {
-      setNoRoom((currState) => !currState);
-    });
-
     return () => {
       socket.emit("leaveRoom", roomId);
     };
   }, [roomId]);
-  return noRoom ? (
-    <div>No such room exists</div>
-  ) : (
+  return (
     <div>
+      {room}
+      <br />
       {clicksLeft}
       <div>
-        <button onClick={() => registerClick(roomId)}>Click</button>
+        <button onClick={() => registerClick(socket, roomId)}>Click</button>
       </div>
     </div>
   );
