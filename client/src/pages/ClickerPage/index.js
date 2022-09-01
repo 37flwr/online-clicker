@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import useSWR from "swr";
 import socket from "../../utils/socket";
 import { registerClick } from "../../utils/socketActions";
 import "./styles.scss";
@@ -9,6 +10,11 @@ const ClickerPage = () => {
   const [clicksLeft, setClicksLeft] = useState(0);
   const [room, setRoom] = useState(null);
   socket.emit("joinRoom", roomId);
+
+  // const { data } = useSWR([
+  //   "http://localhost:8080/roomDetails",
+  //   { params: { roomId } },
+  // ]);
 
   useEffect(() => {
     axios

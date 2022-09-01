@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import useSwr from "swr";
+import Loading from "../../components/Loading";
 import RoomCard from "../../components/RoomCard";
 import socket from "../../utils/socket";
 import { createNewRoom } from "../../utils/socketActions";
@@ -24,13 +25,11 @@ const HomePage = () => {
         Create new clicker room
       </button>
       <div>
-        {rooms ? (
-          rooms.map((room, idx) => {
-            return <RoomCard title={room.name} key={idx} />;
-          })
-        ) : (
-          <div>Loading...</div>
-        )}
+        <Suspense fallback={<Loading />}>
+          {rooms?.map((room, idx) => (
+            <RoomCard title={room.name} key={idx} />
+          ))}
+        </Suspense>
       </div>
     </div>
   );

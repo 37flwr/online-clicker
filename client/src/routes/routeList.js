@@ -14,7 +14,6 @@ const routeList = [
 ];
 
 const AppRoutes = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   return useRoutes(routeList);
 };
 

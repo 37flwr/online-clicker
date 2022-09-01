@@ -1,7 +1,7 @@
 import React from "react";
 
 const ErrorFallback = () => {
-  return <div>ErrorFall</div>;
+  return <div>ErrorFallback</div>;
 };
 
 export default ErrorFallback;
