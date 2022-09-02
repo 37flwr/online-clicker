@@ -5,7 +5,7 @@ import { registerClick } from "../../utils/socketActions";
 import "./styles.scss";
 
 const ClickerPage = () => {
-  const roomId = new URLSearchParams(window.location.search).get("title");
+  const roomId = new URLSearchParams(window.location.search).get("roomId");
   socket.emit("joinRoom", roomId);
   const { data } = useSWR([
     "http://localhost:8080/roomDetails",
@@ -13,11 +13,9 @@ const ClickerPage = () => {
   ]);
 
   const [clicksLeft, setClicksLeft] = useState(0);
-  const [room, setRoom] = useState(null);
 
   useEffect(() => {
     setClicksLeft(data?.clicksLeft);
-    setRoom(data?.name);
 
     socket.on("clickRegistered", (data) => {
       setClicksLeft(data);
@@ -26,17 +24,19 @@ const ClickerPage = () => {
     return () => {
       socket.emit("leaveRoom", roomId);
     };
-  }, [data]);
+  }, [data, roomId]);
 
-  return (
+  return !!data ? (
     <div>
-      {room}
+      {data.id}
       <br />
       {clicksLeft}
       <div>
         <button onClick={() => registerClick(socket, roomId)}>Click</button>
       </div>
     </div>
+  ) : (
+    <div>No such room exists</div>
   );
 };
 

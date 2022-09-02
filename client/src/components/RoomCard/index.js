@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const RoomCard = ({ title }) => {
   return (
-    <Link to={`/click?title=${title.replace(/\s/g, "")}`}>
+    <Link to={`/click?roomId=${title.replace(/\s/g, "")}`}>
       <div>
         <h5>{title}</h5>
       </div>

@@ -27,7 +27,7 @@ const HomePage = () => {
       <div>
         <Suspense fallback={<Loading />}>
           {rooms?.map((room, idx) => (
-            <RoomCard title={room.name} key={idx} />
+            <RoomCard title={room.id} key={idx} />
           ))}
         </Suspense>
       </div>
