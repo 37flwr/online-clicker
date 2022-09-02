@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
 import socket from "../../utils/socket";
@@ -7,22 +6,18 @@ import "./styles.scss";
 
 const ClickerPage = () => {
   const roomId = new URLSearchParams(window.location.search).get("title");
+  socket.emit("joinRoom", roomId);
+  const { data } = useSWR([
+    "http://localhost:8080/roomDetails",
+    [["roomId", roomId]],
+  ]);
+
   const [clicksLeft, setClicksLeft] = useState(0);
   const [room, setRoom] = useState(null);
-  socket.emit("joinRoom", roomId);
-
-  // const { data } = useSWR([
-  //   "http://localhost:8080/roomDetails",
-  //   { params: { roomId } },
-  // ]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/roomDetails", { params: { roomId } })
-      .then((res) => {
-        setClicksLeft(res.data.clicksLeft);
-        setRoom(res.data.name);
-      });
+    setClicksLeft(data?.clicksLeft);
+    setRoom(data?.name);
 
     socket.on("clickRegistered", (data) => {
       setClicksLeft(data);
@@ -31,7 +26,8 @@ const ClickerPage = () => {
     return () => {
       socket.emit("leaveRoom", roomId);
     };
-  }, [roomId]);
+  }, [data]);
+
   return (
     <div>
       {room}
