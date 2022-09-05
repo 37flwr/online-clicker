@@ -13,12 +13,19 @@ exports.ioController = function (socket) {
 
   socket.on("leaveRoom", (roomId) => {
     socket.leave(roomId);
+    const activeUsers = this.adapter.rooms.get(roomId)?.size;
+    this.to(roomId).emit("registerUser", activeUsers);
   });
 
   socket.on("create_room", () => {
     const roomId = uuid4();
     rooms.push({ id: roomId, clicksLeft: 1_000_000 });
     this.emit("room_created", rooms);
+  });
+
+  socket.on("getRoomUsers", (roomId) => {
+    const activeUsers = this.adapter.rooms.get(roomId)?.size;
+    this.to(roomId).emit("registerUser", activeUsers);
   });
 
   socket.on("registerClick", (roomId) => {

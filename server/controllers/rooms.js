@@ -7,5 +7,8 @@ exports.getRooms = (req, res) => {
 exports.getRoomDetails = (req, res) => {
   const roomId = req.query.roomId;
   const remainingClicks = rooms.filter((room) => room.id === roomId);
-  res.send(remainingClicks[0]);
+  res.send({
+    id: remainingClicks[0]?.id,
+    remainingClicks: remainingClicks[0]?.clicksLeft,
+  });
 };

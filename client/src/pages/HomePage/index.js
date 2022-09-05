@@ -19,8 +19,6 @@ const HomePage = () => {
       setRooms(data);
     });
   }, [data]);
-  // console.log(rooms?.length > 0 && rooms[0].id);
-  // console.log(rooms?.length > 0 && );
 
   return (
     <section className="home-page">
