@@ -1,3 +1,4 @@
+import { Box, Button, Container, Grid } from "@mui/material";
 import { Suspense, useEffect, useState } from "react";
 import useSwr from "swr";
 import Loading from "../../components/Loading";
@@ -18,20 +19,26 @@ const HomePage = () => {
       setRooms(data);
     });
   }, [data]);
+  // console.log(rooms?.length > 0 && rooms[0].id);
+  // console.log(rooms?.length > 0 && );
 
   return (
-    <div>
-      <button onClick={() => createNewRoom(socket)}>
-        Create new clicker room
-      </button>
-      <div>
-        <Suspense fallback={<Loading />}>
-          {rooms?.map((room, idx) => (
-            <RoomCard title={room.id} key={idx} />
-          ))}
-        </Suspense>
-      </div>
-    </div>
+    <section className="home-page">
+      <Box display="flex" justifyContent="center" alignItems="center">
+        <Button variant="contained" onClick={() => createNewRoom(socket)}>
+          Create new clicker room
+        </Button>
+      </Box>
+      <Suspense fallback={<Loading />}>
+        <Container fixed>
+          <Grid container columnSpacing={2} rowSpacing={2}>
+            {rooms?.map((room, idx) => (
+              <RoomCard title={room.id} key={idx} />
+            ))}
+          </Grid>
+        </Container>
+      </Suspense>
+    </section>
   );
 };
 
