@@ -12,6 +12,7 @@ const HomePage = () => {
   const { data } = useSwr("http://localhost:8080/rooms");
 
   useEffect(() => {
+    socket.emit("leaveRooms");
     setRooms(data);
 
     // socket listeners

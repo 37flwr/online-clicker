@@ -2,19 +2,28 @@ const uuid4 = require("uuid").v4;
 const { rooms } = require("../roomsDB");
 
 exports.ioController = function (socket) {
-  console.log("user connected" + socket.id);
+  console.log("User connected: " + socket.id);
 
   socket.on("joinRoom", (roomId) => {
     const room = rooms.filter((room) => room.id === roomId)[0];
     if (room) {
       socket.join(roomId);
+      const activeUsers = this.adapter.rooms.get(roomId)?.size;
+      this.to(roomId).emit("updateActiveUsers", activeUsers);
     }
   });
 
   socket.on("leaveRoom", (roomId) => {
     socket.leave(roomId);
-    const activeUsers = this.adapter.rooms.get(roomId)?.size;
-    this.to(roomId).emit("registerUser", activeUsers);
+
+    const set = this.sockets.get(socket.id).adapter.sids.get(socket.id);
+    const values = set.values();
+    const valuesArray = [];
+    for (let i = 0; i < set.size; i++) {
+      valuesArray.push(values.next().value);
+    }
+    const usersLeft = this.adapter.rooms.get(roomId)?.size;
+    this.to(roomId).emit("updateActiveUsers", usersLeft);
   });
 
   socket.on("create_room", () => {
@@ -33,5 +42,21 @@ exports.ioController = function (socket) {
     const roomClicks = room.clicksLeft - 1;
     room.clicksLeft = roomClicks;
     this.to(roomId).emit("clickRegistered", room.clicksLeft);
+  });
+
+  socket.on("disconnecting", () => {
+    console.log("User disconnected: " + socket.id);
+
+    const set = this.sockets.get(socket.id).adapter.sids.get(socket.id);
+    const values = set.values();
+    const valuesArray = [];
+    for (let i = 0; i < set.size; i++) {
+      valuesArray.push(values.next().value);
+    }
+    const usersLeft = this.sockets
+      .get(socket.id)
+      .adapter.rooms.get(valuesArray[1])?.size;
+    valuesArray.length > 1 &&
+      this.to(valuesArray[1]).emit("updateActiveUsers", usersLeft - 1);
   });
 };
