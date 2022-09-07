@@ -65,8 +65,8 @@ const ClickerPage = () => {
             <Enemy />
             <BGScene />
           </div>
-          <NotificationContainer />
         </section>
+        <NotificationContainer />
       </Suspense>
     </ErrorBoundary>
   );

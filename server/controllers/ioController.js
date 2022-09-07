@@ -45,7 +45,7 @@ exports.ioController = function (socket) {
   });
 
   socket.on("activateToast", function (roomId) {
-    this.broadcast.to(roomId).emit("activateToast");
+    this.broadcast.to(roomId).emit("activateToast", socket.id);
   });
 
   socket.on("disconnecting", () => {

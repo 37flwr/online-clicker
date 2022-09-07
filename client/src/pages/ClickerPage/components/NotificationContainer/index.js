@@ -1,18 +1,25 @@
 import classNames from "classnames";
 import { useEffect, useState } from "react";
 import Toast from "../../../../components/Toast";
+import { hideExtraSymbols } from "../../../../utils/formatters";
 import socket from "../../../../utils/socket";
 import "./styles.scss";
 
 const NotificationContainer = ({
-  autoDeleteTime = 1.2,
+  autoDeleteTime = 1.3,
   position = "top-right",
 }) => {
   const [list, setList] = useState([]);
 
   useEffect(() => {
-    socket.on("activateToast", () => {
-      setList([...list, { text: "click", type: "action" }]);
+    socket.on("activateToast", (id) => {
+      setList([
+        ...list,
+        {
+          text: `${hideExtraSymbols(id, 2, 4)} hit monster for 10 hp`,
+          type: "action",
+        },
+      ]);
     });
     const interval = setInterval(() => {
       deleteToast(list[0]?.id);
@@ -26,15 +33,14 @@ const NotificationContainer = ({
   }, [autoDeleteTime, list]);
 
   const deleteToast = (id) => {
-    const listItemIndex = list.findIndex((e) => e.id === id);
-    list.splice(listItemIndex, 1);
+    list.splice(id, 1);
     setList([...list]);
   };
 
   return (
     <div className={classNames("notification-container", position)}>
       {list?.map((toastEl, idx) => (
-        <Toast key={idx} {...toastEl} />
+        <Toast key={idx} id={idx} deleteToast={deleteToast} {...toastEl} />
       ))}
     </div>
   );

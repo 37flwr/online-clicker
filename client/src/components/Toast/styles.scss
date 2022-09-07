@@ -1,7 +1,34 @@
+@import "node_modules/pixel-borders/src/styles/pixel-borders.scss";
 .toast {
-  width: 200px;
-  height: 55px;
+  display: flex;
+  align-items: center;
+  padding-left: 7px;
+  width: 245px;
+  height: 30px;
   border-radius: 10px;
+  position: relative;
+  background-image: linear-gradient(90deg, transparent 50%, #190b20 50%);
+  background-size: 52px;
+  @include pixel-borders(
+    $corner-size: 2,
+    $border-size: 2px,
+    $border-color: #5d6263,
+    $border-inset-color: false
+  );
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 1);
+
+  .toast-btn {
+    all: unset;
+    position: absolute;
+    top: 3px;
+    right: 10px;
+    color: #fff;
+    opacity: 0.7;
+  }
+
+  .toast-text {
+    font: normal 15px "Emilys Candy", serif;
+  }
 }
 
 // Toast types
@@ -14,5 +41,6 @@
 }
 
 .action {
-  background-color: rgb(71, 30, 30);
+  background: linear-gradient(180deg, #969696 0%, #676464 48.96%, #969696 100%);
+  color: #fff;
 }
