@@ -1,0 +1,23 @@
+.enemy-character {
+  position: absolute;
+  bottom: 185px;
+  left: 250px;
+  z-index: 2;
+  pointer-events: none;
+}
+.enemy-shadow {
+  position: absolute;
+  width: 192px;
+  height: 59px;
+  bottom: 175px;
+  left: 240px;
+  z-index: 1;
+
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    #000000 42.71%,
+    rgba(0, 0, 0, 0.6) 68.75%,
+    rgba(0, 0, 0, 0.2) 90.62%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}

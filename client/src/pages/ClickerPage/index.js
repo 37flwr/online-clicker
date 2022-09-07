@@ -1,10 +1,12 @@
 import { Suspense, useEffect, useState } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 import useSWR from "swr";
-import Enemy from "../../assets/enemy1.png";
+import ErrorFallback from "../../components/ErrorFallback";
 import Loading from "../../components/Loading";
 import socket from "../../utils/socket";
 import { registerClick } from "../../utils/socketActions";
 import BGScene from "./components/BGScene";
+import Enemy from "./components/Enemy";
 import HealthBar from "./components/HealthBar";
 import SpookyNavBar from "./components/NavBar";
 import "./styles.scss";
@@ -33,11 +35,11 @@ const ClickerPage = () => {
     };
   }, [data, roomId]);
 
-  return !!data ? (
-    <>
-      <SpookyNavBar roomId={roomId} id={data.id} clicksLeft={clicksLeft} />
+  return (
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
       <Suspense fallback={<Loading />}>
-        <div
+        <SpookyNavBar roomId={roomId} id={data.id} clicksLeft={clicksLeft} />
+        <section
           className="click-page"
           onClick={() => {
             setAnimationPosition((currPos) => {
@@ -50,24 +52,13 @@ const ClickerPage = () => {
           }}
         >
           <div className="click-page-container">
-            {/* <Box>
-              <Typography component="h6" color="inherit" textAlign="center">
-                Clicks remaining: {clicksLeft}
-              </Typography>
-            </Box>
-            <ClickButton socket={socket} roomId={roomId} /> */}
             <HealthBar value={clicksLeft} />
+            <Enemy />
+            <BGScene />
           </div>
-          <div className="enemy">
-            <img src={Enemy} alt="Enemy" className="enemy-character" />
-            <div className="enemy-shadow" />
-          </div>
-          <BGScene />
-        </div>
+        </section>
       </Suspense>
-    </>
-  ) : (
-    <div>No such room exists</div>
+    </ErrorBoundary>
   );
 };
 
