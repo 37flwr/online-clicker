@@ -3,12 +3,14 @@ import { ErrorBoundary } from "react-error-boundary";
 import useSWR from "swr";
 import ErrorFallback from "../../components/ErrorFallback";
 import Loading from "../../components/Loading";
+import Toast from "../../components/Toast";
 import socket from "../../utils/socket";
 import { registerClick } from "../../utils/socketActions";
 import BGScene from "./components/BGScene";
 import Enemy from "./components/Enemy";
 import HealthBar from "./components/HealthBar";
 import SpookyNavBar from "./components/NavBar";
+import NotificationContainer from "./components/NotificationContainer";
 import "./styles.scss";
 
 const ClickerPage = () => {
@@ -22,6 +24,7 @@ const ClickerPage = () => {
 
   const [clicksLeft, setClicksLeft] = useState(0);
   const [animationPosition, setAnimationPosition] = useState(0);
+  const [clicksCounter, setClicksCounter] = useState(0);
 
   useEffect(() => {
     setClicksLeft(data?.remainingClicks);
@@ -29,8 +32,8 @@ const ClickerPage = () => {
     socket.on("clickRegistered", (data) => {
       setClicksLeft(data);
     });
+
     return () => {
-      console.log("leave");
       socket.emit("leaveRoom", roomId);
     };
   }, [data, roomId]);
@@ -42,6 +45,12 @@ const ClickerPage = () => {
         <section
           className="click-page"
           onClick={() => {
+            if (clicksCounter === 10) {
+              socket.emit("activateToast", roomId);
+              setClicksCounter(0);
+            } else {
+              setClicksCounter((currValue) => currValue + 1);
+            }
             setAnimationPosition((currPos) => {
               if (currPos === 2) {
                 return 0;
@@ -56,6 +65,7 @@ const ClickerPage = () => {
             <Enemy />
             <BGScene />
           </div>
+          <NotificationContainer />
         </section>
       </Suspense>
     </ErrorBoundary>

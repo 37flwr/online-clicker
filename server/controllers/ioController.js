@@ -44,6 +44,10 @@ exports.ioController = function (socket) {
     this.to(roomId).emit("clickRegistered", room.clicksLeft);
   });
 
+  socket.on("activateToast", function (roomId) {
+    this.broadcast.to(roomId).emit("activateToast");
+  });
+
   socket.on("disconnecting", () => {
     console.log("User disconnected: " + socket.id);
 

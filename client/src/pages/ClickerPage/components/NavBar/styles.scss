@@ -13,12 +13,12 @@ header {
   text-align: center;
   padding: 2em 2em 3em;
   position: relative;
-  // transform: translateY(-100%);
-  // transition: 0.5s;
+  transform: translateY(-100%);
+  transition: 0.5s;
 
-  // &:hover {
-  //   transform: translateY(0%);
-  // }
+  &:hover {
+    transform: translateY(0%);
+  }
 
   &::before,
   &::after {

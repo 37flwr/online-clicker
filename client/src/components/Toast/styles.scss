@@ -1,0 +1,18 @@
+.toast {
+  width: 200px;
+  height: 55px;
+  border-radius: 10px;
+}
+
+// Toast types
+.success {
+  background-color: green;
+}
+
+.error {
+  background-color: red;
+}
+
+.action {
+  background-color: rgb(71, 30, 30);
+}
