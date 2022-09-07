@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { ReactComponent as CopyIcon } from "../../../../assets/CopyIcon.svg";
+import CopyButton from "../../../../components/Buttons/CopyButton";
 import { hideExtraSymbols } from "../../../../utils/formatters";
 import socket from "../../../../utils/socket";
 import "./styles.scss";
@@ -18,14 +20,18 @@ const SpookyNavBar = ({ roomId, id, clicksLeft }) => {
       <nav>
         <ul>
           <li>
-            <span>Room id: {hideExtraSymbols(id)}</span>
+            Room id: {hideExtraSymbols(id)}
+            <CopyButton
+              width="18px"
+              height="18px"
+              marginLeft="5px"
+              onClick={() => navigator.clipboard.writeText(window.location)}
+            >
+              <CopyIcon />
+            </CopyButton>
           </li>
-          <li>
-            <span>Clicks left: {clicksLeft}</span>
-          </li>
-          <li>
-            <span>Users in room: {activeUsers}</span>
-          </li>
+          <li>Clicks left: {clicksLeft}</li>
+          <li>Users in room: {activeUsers}</li>
         </ul>
       </nav>
 

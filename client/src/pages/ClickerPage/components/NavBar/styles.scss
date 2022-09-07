@@ -13,8 +13,12 @@ header {
   text-align: center;
   padding: 2em 2em 3em;
   position: relative;
-  transform: translateY(-100%);
-  transition: 0.5s;
+  // transform: translateY(-100%);
+  // transition: 0.5s;
+
+  // &:hover {
+  //   transform: translateY(0%);
+  // }
 
   &::before,
   &::after {
@@ -25,45 +29,6 @@ header {
     left: 0;
     z-index: -2;
   }
-
-  &:hover {
-    transform: translateY(0%);
-  }
-
-  // &::before {
-  //   /* Red gradients for blood */
-  //   background: linear-gradient(red 50%, transparent 60%),
-  //     radial-gradient(#d40000 50%, transparent 70%),
-  //     radial-gradient(red 30%, transparent 40%),
-  //     radial-gradient(#d40000 10%, transparent 20%),
-  //     radial-gradient(red 10%, transparent 15%);
-  //   background-size: 100% 100%, 500px 500px, 200px 200px, 103px 273px,
-  //     77px 800px;
-  //   background-position: 0 0, -97% -78%, 71% 0%, 7% 23%, 5% 49%;
-
-  //   /* Background blend for bleed effect */
-  //   mix-blend-mode: multiply;
-
-  //   /* Mouse ignore blood */
-  //   pointer-events: none;
-
-  //   /* Hide before hover transition */
-  //   opacity: 0;
-  //   transform: translateY(-100%);
-
-  //   /* Mouseout effect */
-  //   transition: opacity 3s linear, transform 1s 3s linear;
-
-  //   height: 100%;
-  //   top: 0;
-  // }
-
-  // /* Hover transition */
-  // &:hover::before {
-  //   opacity: 1;
-  //   transform: translateY(0);
-  //   transition: opacity 1s 0s, transform 5s 0s linear;
-  // }
 
   /* Header bottom edge */
   &::after {
@@ -78,13 +43,6 @@ header {
   }
 }
 
-/* Styling */
-
-// body {
-//   background: #090917;
-//   font: 16px/1.5 "Old Standard TT", serif;
-// }
-
 .header-logo-container {
   text-decoration: none;
 
@@ -97,26 +55,19 @@ header {
 }
 
 nav {
-  /* Uncomment layer links above blood effect */
-  //position: relative;
-
-  ul,
-  li {
-    display: inline;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  span {
-    color: #ffffff;
-    font-weight: 700;
-    padding: 1em 2em;
-    // transition: all 1s;
-
-    // &:hover {
-    //   letter-spacing: 0.2em;
-    // }
+  ul {
+    display: flex;
+    gap: 100px;
+    li {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      color: #fff;
+      font-weight: 700;
+    }
   }
 }
 
