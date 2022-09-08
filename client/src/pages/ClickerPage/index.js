@@ -60,7 +60,11 @@ const ClickerPage = () => {
   };
 
   return (
-    <ErrorBoundary FallbackComponent={ErrorFallback}>
+    <ErrorBoundary
+      FallbackComponent={() => (
+        <ErrorFallback text="Oops! Looks like such page does not exist..." />
+      )}
+    >
       <Suspense fallback={<Loading />}>
         <SpookyNavBar roomId={roomId} id={data.id} clicksLeft={clicksLeft} />
         <section className="click-page" onClick={handleClick}>

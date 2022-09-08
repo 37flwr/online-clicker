@@ -1,7 +1,86 @@
 .home-page {
   width: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   gap: 40px;
   padding-bottom: 75px;
+  // background-image: url("");
+  // background-repeat: no-repeat;
+  // background-position: right 0px top -150px;
+
+  /* width */
+  ::-webkit-scrollbar {
+    width: 15px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    transform: translateZ(2);
+
+    position: relative;
+    background-image: url("../../assets/cursors/scrollThumb.png"),
+      url("../../assets/cursors/scrollThumb.png"),
+      linear-gradient(
+        90deg,
+        #000000 0%,
+        rgb(120, 120, 120) 48.96%,
+        #000000 100%
+      );
+
+    background-position: top, bottom;
+    background-repeat: no-repeat, no-repeat, repeat;
+    background-size: 16px, 16px, 16px;
+
+    z-index: 100;
+
+    // background:
+
+    width: 15px;
+    border-radius: 10px;
+  }
+
+  &__btn {
+    z-index: 3;
+  }
+
+  .lift {
+    width: 80%;
+    height: 65%;
+    overflow-y: scroll;
+    display: grid;
+    justify-items: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    // grid-gap: 20px;
+    grid-row-gap: 20px;
+    z-index: 3;
+    margin: auto;
+  }
+
+  .imasd {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+
+    &_1 {
+      position: absolute;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    &_2 {
+      position: absolute;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+    }
+  }
 }

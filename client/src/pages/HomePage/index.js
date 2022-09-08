@@ -1,11 +1,12 @@
-import { Box, Button, Container, Grid } from "@mui/material";
 import { Suspense, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import useSwr from "swr";
+import BGImage from "../../assets/backgrounds/bgMain4.jpg";
+import BasicButton from "../../components/Buttons/BasicButton";
 import Loading from "../../components/Loading";
 import socket from "../../utils/socket";
 import { createNewRoom } from "../../utils/socketActions";
 import NavBar from "./components/NavBar";
-import RoomCard from "./components/RoomCard";
 import "./styles.scss";
 
 const HomePage = () => {
@@ -25,20 +26,31 @@ const HomePage = () => {
   return (
     <section className="home-page">
       <NavBar />
-      <Box display="flex" justifyContent="center" alignItems="center">
-        <Button variant="contained" onClick={() => createNewRoom(socket)}>
-          Create new clicker room
-        </Button>
-      </Box>
+      <BasicButton
+        onClick={() => createNewRoom(socket)}
+        customClassName="home-page__btn"
+      >
+        Create new clicker room
+      </BasicButton>
       <Suspense fallback={<Loading />}>
-        <Container fixed>
-          <Grid container columnSpacing={2} rowSpacing={2}>
-            {rooms?.map((room, idx) => (
-              <RoomCard title={room.id} key={idx} />
-            ))}
-          </Grid>
-        </Container>
+        <div className="lift">
+          {rooms?.map((room, idx) => (
+            // <RoomCard title={room.id} key={idx} />
+            <BasicButton key={idx} size="big">
+              <Link
+                to={`/click?roomId=${room.id.replace(/\s/g, "")}`}
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                {room.id}
+              </Link>
+            </BasicButton>
+          ))}
+        </div>
       </Suspense>
+      <div className="imasd">
+        <div className="imasd_1" />
+        <img className="imasd_2" src={BGImage} alt="1" />
+      </div>
     </section>
   );
 };

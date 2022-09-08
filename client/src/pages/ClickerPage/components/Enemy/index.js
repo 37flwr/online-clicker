@@ -1,5 +1,5 @@
 import React from "react";
-import EnemyImg from "../../../../assets/enemy1.png";
+import EnemyImg from "../../../../assets/enemies/enemy1.png";
 import "./styles.scss";
 
 const Enemy = () => {

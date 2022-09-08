@@ -1,0 +1,49 @@
+@import "node_modules/pixel-borders/src/styles/pixel-borders.scss";
+
+.basic-btn {
+  all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+  position: relative;
+  background-image: linear-gradient(90deg, transparent 50%, #190b20 50%);
+  background-size: 52px;
+  @include pixel-borders(
+    $corner-size: 2,
+    $border-size: 2px,
+    $border-color: #5d6263,
+    $border-inset-color: false
+  );
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 1);
+  font: normal 15px "Emilys Candy", serif;
+  background: linear-gradient(180deg, #969696 0%, #676464 48.96%, #969696 100%);
+  color: #fff;
+
+  &:active {
+    background: linear-gradient(
+      180deg,
+      #676464 0%,
+      #969696 48.96%,
+      #676464 100%
+    );
+
+    @include pixel-borders(
+      $corner-size: 2,
+      $border-size: 2px,
+      $border-color: #4a5050,
+      $border-inset-color: false
+    );
+  }
+}
+
+.small {
+  width: 245px;
+  height: 30px;
+}
+
+.big {
+  width: 300px;
+  height: 100px;
+}

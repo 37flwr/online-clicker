@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ReactComponent as CopyIcon } from "../../../../assets/CopyIcon.svg";
+import { ReactComponent as CopyIcon } from "../../../../assets/icons/CopyIcon.svg";
 import CopyButton from "../../../../components/Buttons/CopyButton";
 import Toast from "../../../../components/Toast";
 import { hideExtraSymbols } from "../../../../utils/formatters";

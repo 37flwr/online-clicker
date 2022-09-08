@@ -1,0 +1,15 @@
+.error-fallback {
+  height: 100vh;
+  width: 100vw;
+
+  position: absolute;
+  top: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #fff;
+  font: normal 48px "Emilys Candy", serif;
+  text-shadow: 3px 3px 0 #000;
+}

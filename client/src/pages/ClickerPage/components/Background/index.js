@@ -1,13 +1,13 @@
 import React from "react";
 import "./styles.scss";
 
-const BGScene = () => {
+const Background = () => {
   return (
     <>
-      <div class="bg-scene" />
-      <div class="bg-scene_front" />
+      <div className="bg-scene" />
+      <div className="bg-scene_front" />
     </>
   );
 };
 
-export default BGScene;
+export default Background;
