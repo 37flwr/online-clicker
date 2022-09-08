@@ -1,24 +1,31 @@
-.enemy-character {
+.enemy {
   position: absolute;
-  bottom: 185px;
-  right: 375px;
-  transform: scale(-1, 1);
-  z-index: 2;
-  pointer-events: none;
-}
-.enemy-shadow {
-  position: absolute;
-  width: 192px;
-  height: 59px;
+  right: 19vw;
   bottom: 175px;
-  right: 365px;
-  z-index: 1;
 
-  background: radial-gradient(
-    50% 50% at 50% 50%,
-    #000000 42.71%,
-    rgba(0, 0, 0, 0.6) 68.75%,
-    rgba(0, 0, 0, 0.2) 90.62%,
-    rgba(0, 0, 0, 0) 100%
-  );
+  &__character {
+    position: relative;
+    z-index: 2;
+
+    transform: scale(-1, 1);
+    pointer-events: none;
+  }
+
+  &_shadow {
+    width: 192px;
+    height: 59px;
+
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
+    z-index: 1;
+
+    background: radial-gradient(
+      50% 50% at 50% 50%,
+      #000000 42.71%,
+      rgba(0, 0, 0, 0.6) 68.75%,
+      rgba(0, 0, 0, 0.2) 90.62%,
+      rgba(0, 0, 0, 0) 100%
+    );
+  }
 }

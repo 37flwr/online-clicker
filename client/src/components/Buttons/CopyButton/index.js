@@ -1,22 +1,12 @@
+import classNames from "classnames";
 import React from "react";
 import "./styles.scss";
 
-const CopyButton = ({
-  children,
-  width,
-  height,
-  onClick,
-  ...cusomClassName
-}) => {
+const CopyButton = ({ children, onClick, customClassName }) => {
   return (
     <button
-      className="copy-btn"
+      className={classNames("copy-btn", customClassName)}
       onClick={onClick}
-      style={{
-        width: width,
-        height: height,
-        ...cusomClassName,
-      }}
     >
       {children}
     </button>

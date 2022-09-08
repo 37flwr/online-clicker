@@ -1,90 +1,89 @@
 @import "node_modules/pixel-borders/src/styles/pixel-borders.scss";
 
-.clicker-page-header {
+.cp-header {
+  position: relative;
+  padding: 2em 2em 3em;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  z-index: 4;
+  transform-style: preserve-3d;
+  transform: translateY(-100%);
+  transition: 0.5s;
+
   /* Striped background */
   background: #2a1135;
   background-image: linear-gradient(90deg, transparent 50%, #190b20 50%);
   background-size: 52px;
   box-shadow: inset 0 0 100px #000;
-  z-index: 4;
-  transform-style: preserve-3d;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 
   text-align: center;
-  padding: 2em 2em 3em;
-  position: relative;
-  transform: translateY(-100%);
-  transition: 0.5s;
 
   &:hover {
     transform: translateY(0%);
   }
 
-  &::before,
-  &::after {
-    content: "";
-    display: block;
-    width: 100%;
-    position: absolute;
-    left: 0;
-    z-index: -2;
-  }
-
   /* Header bottom edge */
   &::after {
+    content: "";
+
+    width: 100%;
+    height: 104px;
+    display: block;
+
+    position: absolute;
+    bottom: -52px;
+    left: 0;
+    transform: translateZ(-1px);
+
     background-image: radial-gradient(#07050a 40%, transparent 41%),
       radial-gradient(#07050a 40%, transparent 41%);
     background-size: 104px 104px;
     background-position: 0 0, 52px 0;
-
-    height: 104px;
-    bottom: -52px;
-    transform: translateZ(-1px);
   }
-}
 
-.header-logo-container {
-  text-decoration: none;
-
-  color: #fff;
-  font: normal 52px "Emilys Candy", serif;
-  text-shadow: 3px 3px 0 #000;
-  width: max-content;
-  margin-top: 20px;
-  cursor: url("../../../../assets/cursor.png"), pointer;
-}
-
-nav {
-  ul {
+  &__navigation {
     display: flex;
     gap: 100px;
-    li {
+
+    &__elem {
+      margin: 0;
+      padding: 0;
+      position: relative;
+
       display: flex;
       align-items: center;
       gap: 5px;
-      margin: 0;
-      padding: 0;
+
       list-style: none;
       color: #fff;
       font-weight: 700;
-      position: relative;
 
-      .clipboard-success {
+      &__copy-btn {
+        width: 18px;
+        height: 18px;
+        margin-left: 5px;
+      }
+
+      &_clipboard-success {
+        width: 200px;
+        height: 25px;
         position: absolute;
         top: 0;
+
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 200px;
-        height: 25px;
+
         background: linear-gradient(
           180deg,
           #969696 0%,
           #676464 48.96%,
           #969696 100%
         );
+        box-shadow: 5px 5px 5px rgba(0, 0, 0, 1);
         color: #fff;
         font: normal 16px "Emilys Candy", serif;
 
@@ -94,28 +93,24 @@ nav {
           $border-color: #5d6263,
           $border-inset-color: false
         );
-        box-shadow: 5px 5px 5px rgba(0, 0, 0, 1);
       }
     }
   }
-}
 
-.tagline {
-  color: #dcbd77;
-  margin-top: 7px;
-}
+  &__logo {
+    width: max-content;
+    margin-top: 20px;
 
-/* Remove effects on mobile, fix nav */
-@media (max-width: 714px) {
-  header::before {
-    display: none;
+    text-decoration: none;
+    color: #fff;
+    font: normal 52px "Emilys Candy", serif;
+    text-shadow: 3px 3px 0 #000;
+
+    cursor: url("../../../../assets/cursor.png"), pointer;
   }
 
-  nav {
-    p {
-      line-height: 2.5;
-      padding: 1em;
-      white-space: nowrap;
-    }
+  &__tagline {
+    color: #dcbd77;
+    margin-top: 7px;
   }
 }

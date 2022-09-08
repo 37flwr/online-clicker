@@ -2,10 +2,10 @@ import { Box, Button, Container, Grid } from "@mui/material";
 import { Suspense, useEffect, useState } from "react";
 import useSwr from "swr";
 import Loading from "../../components/Loading";
-import RoomCard from "../../components/RoomCard";
 import socket from "../../utils/socket";
 import { createNewRoom } from "../../utils/socketActions";
-import NavBar from "./NavBar";
+import NavBar from "./components/NavBar";
+import RoomCard from "./components/RoomCard";
 import "./styles.scss";
 
 const HomePage = () => {

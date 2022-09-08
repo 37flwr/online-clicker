@@ -4,10 +4,10 @@ import "./styles.scss";
 
 const Enemy = () => {
   return (
-    <>
-      <img src={EnemyImg} alt="Enemy" className="enemy-character" />
-      <div className="enemy-shadow" />
-    </>
+    <div className="enemy">
+      <img src={EnemyImg} alt="Enemy" className="enemy__character" />
+      <div className="enemy_shadow" />
+    </div>
   );
 };
 
