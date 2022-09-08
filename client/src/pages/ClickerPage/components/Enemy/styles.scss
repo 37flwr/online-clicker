@@ -1,7 +1,8 @@
 .enemy-character {
   position: absolute;
   bottom: 185px;
-  left: 250px;
+  right: 375px;
+  transform: scale(-1, 1);
   z-index: 2;
   pointer-events: none;
 }
@@ -10,7 +11,7 @@
   width: 192px;
   height: 59px;
   bottom: 175px;
-  left: 240px;
+  right: 365px;
   z-index: 1;
 
   background: radial-gradient(

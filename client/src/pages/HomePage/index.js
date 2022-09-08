@@ -5,6 +5,7 @@ import Loading from "../../components/Loading";
 import RoomCard from "../../components/RoomCard";
 import socket from "../../utils/socket";
 import { createNewRoom } from "../../utils/socketActions";
+import NavBar from "./NavBar";
 import "./styles.scss";
 
 const HomePage = () => {
@@ -23,6 +24,7 @@ const HomePage = () => {
 
   return (
     <section className="home-page">
+      <NavBar />
       <Box display="flex" justifyContent="center" alignItems="center">
         <Button variant="contained" onClick={() => createNewRoom(socket)}>
           Create new clicker room

@@ -1,4 +1,6 @@
-header {
+@import "node_modules/pixel-borders/src/styles/pixel-borders.scss";
+
+.clicker-page-header {
   /* Striped background */
   background: #2a1135;
   background-image: linear-gradient(90deg, transparent 50%, #190b20 50%);
@@ -67,6 +69,33 @@ nav {
       list-style: none;
       color: #fff;
       font-weight: 700;
+      position: relative;
+
+      .clipboard-success {
+        position: absolute;
+        top: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 200px;
+        height: 25px;
+        background: linear-gradient(
+          180deg,
+          #969696 0%,
+          #676464 48.96%,
+          #969696 100%
+        );
+        color: #fff;
+        font: normal 16px "Emilys Candy", serif;
+
+        @include pixel-borders(
+          $corner-size: 2,
+          $border-size: 2px,
+          $border-color: #5d6263,
+          $border-inset-color: false
+        );
+        box-shadow: 5px 5px 5px rgba(0, 0, 0, 1);
+      }
     }
   }
 }
