@@ -1,6 +1,6 @@
-#Online clicker
+# Online clicker
 
-##Technology stack
+## Technology stack
 
 • HTML5
 • CSS (SCSS preprocessor)
@@ -10,10 +10,10 @@
 • Express.JS
 • Socket.IO
 
-##Roadmap
+## Roadmap
 
-• Create random generator of enemies and locations
-• Add MongoDB
-• Add user profile
-• Add achievements
-• Add leaderboard
+- [] Create random generator of enemies and locations
+- [] Add MongoDB
+- [] Add user profile
+- [] Add achievements
+- [] Add leaderboard
