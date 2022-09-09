@@ -1,15 +1,20 @@
 const uuid4 = require("uuid").v4;
+const { hideExtraSymbols } = require("../utils/formatters");
 const { rooms } = require("../roomsDB");
 
 exports.ioController = function (socket) {
   console.log("User connected: " + socket.id);
 
-  socket.on("joinRoom", (roomId) => {
+  socket.on("joinRoom", function (roomId) {
     const room = rooms.filter((room) => room.id === roomId)[0];
     if (room) {
       socket.join(roomId);
       const activeUsers = this.adapter.rooms.get(roomId)?.size;
       this.to(roomId).emit("updateActiveUsers", activeUsers);
+      this.broadcast.to(roomId).emit("activateToast", {
+        text: `${hideExtraSymbols(socket.id, 2, 4)} entered the room`,
+        type: "action",
+      });
     }
   });
 
@@ -26,9 +31,10 @@ exports.ioController = function (socket) {
     this.to(roomId).emit("updateActiveUsers", usersLeft);
   });
 
-  socket.on("create_room", () => {
-    const roomId = uuid4();
-    rooms.push({ id: roomId, clicksLeft: 1_000_000 });
+  socket.on("create_room", (id) => {
+    // const roomId = uuid4();
+    console.log(id);
+    rooms.push({ id: id, clicksLeft: 1_000_000 });
     this.emit("room_created", rooms);
   });
 

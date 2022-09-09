@@ -1,5 +1,5 @@
-const createNewRoom = (socket) => {
-  socket.emit("create_room");
+const createNewRoom = (socket, id) => {
+  socket.emit("create_room", id);
 };
 
 const registerClick = (socket, roomId) => {

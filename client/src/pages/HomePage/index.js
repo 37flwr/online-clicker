@@ -1,56 +1,40 @@
-import { Suspense, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import useSwr from "swr";
-import BGImage from "../../assets/backgrounds/bgMain4.jpg";
+import { Suspense, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 import BasicButton from "../../components/Buttons/BasicButton";
 import Loading from "../../components/Loading";
 import socket from "../../utils/socket";
 import { createNewRoom } from "../../utils/socketActions";
+import Background from "./components/Background";
 import NavBar from "./components/NavBar";
+import Rooms from "./components/Rooms";
 import "./styles.scss";
 
 const HomePage = () => {
-  const [rooms, setRooms] = useState(null);
-  const { data } = useSwr("http://localhost:8080/rooms");
-
+  const navigate = useNavigate();
   useEffect(() => {
     socket.emit("leaveRooms");
-    setRooms(data);
-
-    // socket listeners
-    socket.on("room_created", (data) => {
-      setRooms(data);
-    });
-  }, [data]);
+  });
 
   return (
     <section className="home-page">
       <NavBar />
-      <BasicButton
-        onClick={() => createNewRoom(socket)}
-        customClassName="home-page__btn"
-      >
-        Create new clicker room
-      </BasicButton>
-      <Suspense fallback={<Loading />}>
-        <div className="lift">
-          {rooms?.map((room, idx) => (
-            // <RoomCard title={room.id} key={idx} />
-            <BasicButton key={idx} size="big">
-              <Link
-                to={`/click?roomId=${room.id.replace(/\s/g, "")}`}
-                style={{ textDecoration: "none", color: "white" }}
-              >
-                {room.id}
-              </Link>
-            </BasicButton>
-          ))}
-        </div>
-      </Suspense>
-      <div className="imasd">
-        <div className="imasd_1" />
-        <img className="imasd_2" src={BGImage} alt="1" />
+      <div className="home-page_container">
+        <BasicButton
+          onClick={() => {
+            const id = uuidv4();
+            createNewRoom(socket, id);
+            navigate(`/click?roomId=${id}`);
+          }}
+          customClassName="home-page_container__btn"
+        >
+          Create new clicker room
+        </BasicButton>
+        <Suspense fallback={<Loading />}>
+          <Rooms />
+        </Suspense>
       </div>
+      <Background />
     </section>
   );
 };

@@ -1,0 +1,19 @@
+.home-page_grid {
+  width: 80%;
+  height: 50vh;
+  z-index: 3;
+
+  display: grid;
+  justify-items: center;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 100px 100px 100px 100px;
+  grid-row-gap: 20px;
+
+  overflow-y: scroll;
+
+  &__link {
+    cursor: unset;
+    text-decoration: none;
+    height: 100px;
+  }
+}
