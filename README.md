@@ -12,7 +12,7 @@
 
 ## Getting started
 
-This is an example of how you may set up project locally. To get a local copy up and running follow these simple example steps.
+This is an example of how you may set up project locally. To get a local copy up and run an app follow these simple example steps.
 
 1. Clone the repo
     ```sh
@@ -21,7 +21,7 @@ This is an example of how you may set up project locally. To get a local copy up
 
 2. Create terminal for frontend part of the project
 
-    Ctrl(CMD)+Shift+`
+    Ctrl(CMD) + Shift + `
 
 3. Install frontend dependencies
     ```sh
@@ -35,7 +35,7 @@ This is an example of how you may set up project locally. To get a local copy up
 
 5. Create another terminal for backend part of the project
 
-    Ctrl(CMD)+Shift+5
+    Ctrl(CMD) + Shift + 5
 
 6. Install backend dependencies
     ```sh
@@ -47,7 +47,8 @@ This is an example of how you may set up project locally. To get a local copy up
     npm start
     ```
 
-8. Now you are good to go!
+8. _*Now you are good to go!*_
+
 
 ## Roadmap
 
